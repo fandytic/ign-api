@@ -35,10 +35,26 @@ class database{
     }
 
     function insert_data($values){
-        $sql = "INSERT INTO members ( name, email, birth_date, country, phone,registration_date,need_pickup )       
-                VALUES".$values;
-                //var_dump($sql);
+        $sql = "INSERT INTO members ( name, email, birth_date, country, 
+        phone,registration_date,need_pickup ) VALUES".$values;
         mysqli_query($this->con, $sql);
+    }
+
+    function update_data($name, $email, $birth_date, $country, $phone, $registration_date, $need_pickup){
+        $sql = "UPDATE members SET name='$name', birth_date='$birth_date', 
+        country='$country', phone='$phone',registration_date='$registration_date',
+        need_pickup='$need_pickup' WHERE email = '$email'";
+        mysqli_query($this->con, $sql);
+    }
+
+    function cek_data($email){
+        $sql = "SELECT * FROM members WHERE email = '$email'";
+        $result = mysqli_query($this->con, $sql);
+        if( mysqli_num_rows($result) > 0) {
+            return true;
+        } else{
+            return false;
+        }
     }
  
 } 

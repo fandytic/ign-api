@@ -19,19 +19,25 @@ class ignapi {
       $arr_count = sizeof($this->GetApi());
       $data = $this->GetApi();
       for ($i=0; $i < $arr_count; $i++) { 
-        $test = $data[$i];
+        $dataApi = $data[$i];
         
-        $name = $test['name'];
-        $email = $test['email'];
-        $birth_date = $test['birth_date'];
-        $country = $test['country'];
-        $phone = $test['phone'];
-        $registration_date = $test['registration_date'];
-        $need_pickup = $test['need_pickup'];
+        $name = $dataApi['name'];
+        $email = $dataApi['email'];
+        $birth_date = $dataApi['birth_date'];
+        $country = $dataApi['country'];
+        $phone = $dataApi['phone'];
+        $registration_date = $dataApi['registration_date'];
+        $need_pickup = $dataApi['need_pickup'];
 
         $values = "('$name', '$email', '$birth_date', '$country', '$phone', '$registration_date', '$need_pickup')";
         
-        $this->con->insert_data($values);
+        $cek = $this->con->cek_data($email);
+        // execute query from API
+        if ($cek == TRUE) {
+          $this->con->update_data($name, $email, $birth_date, $country, $phone, $registration_date, $need_pickup);
+        } else {
+          $this->con->insert_data($values);
+        }
       }
     }
 }

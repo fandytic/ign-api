@@ -2,5 +2,6 @@
 include "service/ignapi.php";
 $main = new ignapi();
 
-//$main->GetApi();
+// service worker
 $main->InsertData();
+echo "service running";
