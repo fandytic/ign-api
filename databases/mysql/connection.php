@@ -16,7 +16,7 @@ class database{
         $sql = "CREATE TABLE members(
             id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
             name VARCHAR(50) NOT NULL,
-            email VARCHAR(50) NOT NULL,
+            email VARCHAR(50) NOT NULL UNIQUE,
             birth_date VARCHAR(30) NOT NULL,
             country VARCHAR(50) NOT NULL,
             phone VARCHAR(30) NOT NULL,
@@ -33,18 +33,13 @@ class database{
         // Close connection
         mysqli_close($this->con);
     }
+
+    function insert_data($values){
+        $sql = "INSERT INTO members ( name, email, birth_date, country, phone,registration_date,need_pickup )       
+                VALUES".$values;
+                //var_dump($sql);
+        mysqli_query($this->con, $sql);
+    }
  
 } 
-
-// $host = "localhost";
-// $uname = "root";
-// $pass = "";
-// $db = "fandy";
-
-// $mysqli = new mysqli($host, $uname, $pass, $db);
- 
-// // Check connection
-// if($mysqli === false){
-//     die("ERROR: Could not connect. " . $mysqli->connect_error);
-// }
 
